@@ -1,9 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rogedo.LifeEngine.Domain;
 using Rogedo.LifeEngine.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Rogedo.LifeEngine.Test.Domain
 {
@@ -15,6 +12,14 @@ namespace Rogedo.LifeEngine.Test.Domain
         {
             IArena arena = new Arena();
             Assert.IsNotNull(arena);
+        }
+
+        [TestMethod]
+        public void WhenArenaInitialised_ThenItShouldBeTheCorrectSize()
+        {
+            IArena arena = new Arena();
+            arena.Initialise(5);
+            Assert.IsTrue(arena.GetArenaSize() == 25);
         }
     }
 }
