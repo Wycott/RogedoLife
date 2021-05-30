@@ -13,5 +13,7 @@ namespace Rogedo.LifeEngine.Interfaces
         void MakeNextGeneration();
         int GetPopulation();
         int GetGeneration();
+        bool Repeating { get; }
+        void InitialiseRandomly(int dimension);
     }
 }

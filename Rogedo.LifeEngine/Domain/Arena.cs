@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Linq;
+using System;
 
 namespace Rogedo.LifeEngine.Domain
 {
@@ -11,10 +12,20 @@ namespace Rogedo.LifeEngine.Domain
         public List<ICell> ArenaCells { get; private set; }
         private int Dimension { get; set; }
         public int CellGeneration { get; private set; }
+        private List<string> Signatures { get; set; }
+
+        public bool Repeating
+        {
+            get
+            {
+                return CellGeneration != Signatures.Count;
+            }
+        }
 
         public Arena()
         {
             ArenaCells = new List<ICell>();
+            Signatures = new List<string>();
         }
 
         public int GetArenaSize()
@@ -35,6 +46,34 @@ namespace Rogedo.LifeEngine.Domain
                     ArenaCells.Add(cell);
                 }
             }
+        }
+
+        public void InitialiseRandomly(int dimension)
+        {
+            Dimension = dimension;
+            ArenaCells = new List<ICell>();
+
+            for (int x = 0; x < dimension; x++)
+            {
+                for (int y = 0; y < dimension; y++)
+                {
+                    var cell = new Cell();
+                    if (PopulateCell())
+                        cell.SetGeneration(Interfaces.Types.CellGeneration.Current);
+                    ArenaCells.Add(cell);
+                }
+            }
+        }
+
+        private bool PopulateCell()
+        {
+            List<char> wins = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7' };
+            var guid = Guid.NewGuid().ToString();
+            var candidate = guid.Substring(0, 1).ToCharArray()[0];
+
+            return wins.Contains(candidate);
+
+
         }
 
         public string GetSignature()
@@ -62,7 +101,7 @@ namespace Rogedo.LifeEngine.Domain
         }
 
         public void MakeNextGeneration()
-        {
+        {            
             List<Point> dying = new List<Point>();
 
             bool cellProcessed;
@@ -112,6 +151,10 @@ namespace Rogedo.LifeEngine.Domain
             }
 
             CellGeneration++;
+
+            var signature = GetSignature();
+            if (!Signatures.Contains(signature))
+                Signatures.Add(signature);
         }
 
         public int GetPopulation()
