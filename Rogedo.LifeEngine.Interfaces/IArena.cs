@@ -9,5 +9,9 @@ namespace Rogedo.LifeEngine.Interfaces
         int GetArenaSize();
         string GetSignature();
         void Seed(int x, int y);
+        ICell GetCellAt(int x, int y);
+        void MakeNextGeneration();
+        int GetPopulation();
+        int GetGeneration();
     }
 }
