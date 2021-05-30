@@ -11,5 +11,10 @@ namespace Rogedo.LifeEngine.Domain
         {
             Generation = CellGeneration.Dead;
         }
+
+        public void SetGeneration(CellGeneration generation)
+        {
+            Generation = generation;
+        }
     }
 }

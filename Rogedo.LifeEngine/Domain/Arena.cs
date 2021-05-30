@@ -7,6 +7,7 @@ namespace Rogedo.LifeEngine.Domain
     public class Arena : IArena
     {
         public List<ICell> ArenaCells { get; private set; }
+        private int Dimension { get; set; }
 
         public Arena()
         {
@@ -20,6 +21,7 @@ namespace Rogedo.LifeEngine.Domain
 
         public void Initialise(int dimension)
         {
+            Dimension = dimension;
             ArenaCells = new List<ICell>();
 
             for (int x = 0; x < dimension; x++)
@@ -41,6 +43,12 @@ namespace Rogedo.LifeEngine.Domain
                 sb.Append(simpleCell);
             }
             return sb.ToString();
+        }
+
+        public void Seed(int x, int y)
+        {
+            var index = (x % Dimension) + (y * Dimension);
+            ArenaCells[index].SetGeneration(Interfaces.Types.CellGeneration.Current);
         }
     }
 }

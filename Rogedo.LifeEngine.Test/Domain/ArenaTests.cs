@@ -33,5 +33,17 @@ namespace Rogedo.LifeEngine.Test.Domain
             arena.Initialise(dim);
             Assert.AreEqual(arena.GetSignature(), expectedSignature);
         }
+
+        [TestMethod]
+        public void WhenArenaInitialisedAndSeeded_ThenSignatureShouldBeAsExpected()
+        {
+            const int dim = 2;
+            const string expectedSignature = "1001";
+            IArena arena = new Arena();
+            arena.Initialise(dim);
+            arena.Seed(0, 0);
+            arena.Seed(1, 1);
+            Assert.AreEqual(arena.GetSignature(), expectedSignature);
+        }
     }
 }

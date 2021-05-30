@@ -8,5 +8,6 @@ namespace Rogedo.LifeEngine.Interfaces
         void Initialise(int dimension);
         int GetArenaSize();
         string GetSignature();
+        void Seed(int x, int y);
     }
 }
