@@ -6,7 +6,7 @@ namespace Rogedo.LifeEngine.Rig
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             const int dimension = 50;
 
@@ -38,8 +38,8 @@ namespace Rogedo.LifeEngine.Rig
             ConsoleColor defaultColour = Console.ForegroundColor;
 
             int currentCell = 0;
-            int x = 0;
-            int y = 0;
+            int x;
+            int y;
             foreach (var c in arena.ArenaCells)
             {
                 //currentCell++;

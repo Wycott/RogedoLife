@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Rogedo.LifeEngine.Interfaces.Types
+﻿namespace Rogedo.LifeEngine.Interfaces.Types
 {
     public enum CellGeneration
     {
