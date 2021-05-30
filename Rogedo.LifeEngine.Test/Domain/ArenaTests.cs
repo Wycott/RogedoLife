@@ -17,9 +17,21 @@ namespace Rogedo.LifeEngine.Test.Domain
         [TestMethod]
         public void WhenArenaInitialised_ThenItShouldBeTheCorrectSize()
         {
+            const int dim = 5;
+
             IArena arena = new Arena();
-            arena.Initialise(5);
-            Assert.IsTrue(arena.GetArenaSize() == 25);
+            arena.Initialise(dim);            
+            Assert.IsTrue(arena.GetArenaSize() == dim * dim);
+        }
+
+        [TestMethod]
+        public void WhenArenaInitialised_ThenSignatureShouldBeAsExpected()
+        {
+            const int dim = 2;
+            const string expectedSignature = "0000";
+            IArena arena = new Arena();
+            arena.Initialise(dim);
+            Assert.AreEqual(arena.GetSignature(), expectedSignature);
         }
     }
 }
