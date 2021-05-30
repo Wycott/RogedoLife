@@ -8,13 +8,13 @@ using System.Text;
 namespace Rogedo.LifeEngine.Test.Domain
 {
     [TestClass]
-    public class ArenaTests
+    class CellTests
     {
         [TestMethod]
-        public void WhenArenaCreated_ThenNoErrorShouldBeThrown()
+        public void WhenCellCreated_ThenNoErrorShouldBeThrown()
         {
-            IArena arena = new Arena();
-            Assert.IsNotNull(arena);
+            ICell cell = new Cell();
+            Assert.IsNotNull(cell);
         }
     }
 }
