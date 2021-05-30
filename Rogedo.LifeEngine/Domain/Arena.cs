@@ -67,6 +67,7 @@ namespace Rogedo.LifeEngine.Domain
 
         private bool PopulateCell()
         {
+            //List<char> wins = new List<char> { '0', '1', '2', '3' };
             List<char> wins = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7' };
             var guid = Guid.NewGuid().ToString();
             var candidate = guid.Substring(0, 1).ToCharArray()[0];

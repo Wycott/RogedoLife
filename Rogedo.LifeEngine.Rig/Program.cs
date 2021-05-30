@@ -10,16 +10,16 @@ namespace Rogedo.LifeEngine.Rig
         {
             const int dimension = 50;
 
-            //IArena gameArena = new Arena();
-            //gameArena.Initialise(dimension);
-            //gameArena.Seed(1, 0);
-            //gameArena.Seed(2, 1);
-            //gameArena.Seed(0, 2);
-            //gameArena.Seed(1, 2);
-            //gameArena.Seed(2, 2);
-
             IArena gameArena = new Arena();
-            gameArena.InitialiseRandomly(dimension);
+            gameArena.Initialise(dimension);
+            gameArena.Seed(25, 24);
+            gameArena.Seed(25, 25);
+            gameArena.Seed(25, 26);
+            gameArena.Seed(26, 24);
+            gameArena.Seed(24, 25);
+
+            //IArena gameArena = new Arena();
+            //gameArena.InitialiseRandomly(dimension);
 
             Console.Clear();
             Console.CursorVisible = false;
