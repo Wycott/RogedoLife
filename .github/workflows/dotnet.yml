@@ -21,4 +21,4 @@ jobs:
       - name: Run Tests
         run: |
             cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TestWindow"
-            .\vstest.console.exe /Platform:x64 $Env:GITHUB_WORKSPACE\TimeModelWrapper.Test\bin\Debug\Rogedo.LifeEngine.Test.dll
+            .\vstest.console.exe /Platform:x64 $Env:GITHUB_WORKSPACE\Rogedo.LifeEngine.Test\bin\Debug\Rogedo.LifeEngine.Test.dll
