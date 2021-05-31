@@ -77,9 +77,9 @@ namespace Rogedo.LifeEngine.Rig
                     Console.WriteLine();
                 }
 
-                if (runs % 1000000 == 0)
+                if (runs % 100000 == 0)
                 { 
-                    Console.WriteLine($"Runs: {runs/ 1000000}M, Elapsed: {sw.ElapsedMilliseconds/1000/60} mins");
+                    Console.WriteLine($"Runs: {runs}, Elapsed: {sw.ElapsedMilliseconds/1000/60} mins");
                     return;
                 }
             }
