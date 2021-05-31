@@ -14,9 +14,14 @@ namespace Rogedo.LifeEngine.Rig
             int dimensions = 0;
             if (args.Length == 1)
                 dimensions = Convert.ToInt32(args[0]);
-            //Runner();
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            Runner();
+            sw.Stop();
+            Console.WriteLine($"Elapsed: {sw.ElapsedMilliseconds / 1000}s");
             //Finder(dimensions);
-            Demo();
+            //Demo();
         }
 
         static void Demo()
@@ -67,7 +72,7 @@ namespace Rogedo.LifeEngine.Rig
                     int newTot = gameArena.GetPopulation();
 
                     if (currentTot == newTot)
-                      bail = true;                    
+                        bail = true;
                 }
 
                 runs++;
@@ -95,7 +100,7 @@ namespace Rogedo.LifeEngine.Rig
 
                 if (runs % 100000 == 0)
                 {
-                    Console.WriteLine($"Runs: {runs}, Elapsed: {sw.ElapsedMilliseconds/1000/60} mins");
+                    Console.WriteLine($"Runs: {runs}, Elapsed: {sw.ElapsedMilliseconds / 1000 / 60} mins");
                     return;
                 }
             }
@@ -192,7 +197,7 @@ namespace Rogedo.LifeEngine.Rig
                 int newTot = gameArena.GetPopulation();
 
                 if (currentTot == newTot)
-                  bail = true;
+                    bail = true;
             }
 
             Console.CursorVisible = true;

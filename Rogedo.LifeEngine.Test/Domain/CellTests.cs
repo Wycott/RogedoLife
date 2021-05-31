@@ -13,5 +13,21 @@ namespace Rogedo.LifeEngine.Test.Domain
             ICell cell = new Cell();
             Assert.IsNotNull(cell);
         }
+
+        [TestMethod]
+        public void WhenCellCreated_ThenItShouldBeDead()
+        {
+            ICell cell = new Cell();
+            Assert.IsTrue(cell.Generation == Interfaces.Types.CellGeneration.Dead);
+        }
+
+        [TestMethod]
+        public void WhenCellGenerationIsChanged_ThenItShouldBeCorrect()
+        {
+            ICell cell = new Cell();
+            cell.SetGeneration(Interfaces.Types.CellGeneration.Current);
+
+            Assert.IsTrue(cell.Generation == Interfaces.Types.CellGeneration.Current);
+        }
     }
 }
