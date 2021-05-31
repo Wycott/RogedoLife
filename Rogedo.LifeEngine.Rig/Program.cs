@@ -169,6 +169,7 @@ namespace Rogedo.LifeEngine.Rig
                 Console.WriteLine($"Population: {arena.GetPopulation()} ");
                 Console.SetCursorPosition(0, dimension + 2);
                 Console.WriteLine($"Dimension: {arena.CurrentDimension} ");
+                System.Threading.Thread.Sleep(100);
             }
             else
             {
