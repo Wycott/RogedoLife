@@ -1,5 +1,6 @@
 ﻿using Rogedo.LifeEngine.Domain;
 using Rogedo.LifeEngine.Interfaces;
+using Rogedo.LifeEngine.Tools;
 using System;
 using System.Drawing;
 
@@ -9,7 +10,59 @@ namespace Rogedo.LifeEngine.Rig
     {
         static void Main()
         {
-            int dimension = 10;
+            //Runner();
+            Finder();
+        }
+
+        static void Finder()
+        {
+            int bestGenerations = 0;
+            int dimension = 4;
+            int runs = 0;
+
+            while (true)
+            {
+                IArena gameArena = new Arena();
+                gameArena.Initialise(dimension);
+
+                var dataPoints = new RandomArenaGenerator().Execute(dimension, 10);
+
+                foreach (var dataPoint in dataPoints)
+                {
+                    gameArena.Seed(dataPoint.X, dataPoint.Y);
+                }
+
+                gameArena.Pad();
+
+                bool bail = false;
+                while (gameArena.GetPopulation() > 0 && !gameArena.Repeating && !bail)
+                {
+                    int currentTot = gameArena.GetPopulation();
+                    gameArena.MakeNextGeneration();
+                    int newTot = gameArena.GetPopulation();
+
+                    if (currentTot == newTot)
+                        bail = true;
+                    runs++;
+                }
+
+                int generations = gameArena.GetGeneration();
+                if (generations > bestGenerations)
+                {
+                    bestGenerations = generations;
+                    Console.WriteLine($"Best generation: {generations} after {runs} runs");
+                    foreach (var p in dataPoints)
+                    {
+                        Console.Write($"{p.X},{p.Y} ");
+                    }
+                    Console.WriteLine();
+                }
+            }
+        }
+
+        static void Runner()
+        {
+            int dimension = 4;
 
             IArena gameArena = new Arena();
             gameArena.Initialise(dimension);
@@ -53,13 +106,15 @@ namespace Rogedo.LifeEngine.Rig
             //gameArena.Seed(3, 2);
 
             // Long runner
-            gameArena.Seed(6, 0);
-            gameArena.Seed(0, 1);
-            gameArena.Seed(1, 1);
-            gameArena.Seed(1, 2);
-            gameArena.Seed(5, 2);
-            gameArena.Seed(6, 2);
-            gameArena.Seed(7, 2);
+            //gameArena.Seed(6, 0);
+            //gameArena.Seed(0, 1);
+            //gameArena.Seed(1, 1);
+
+
+            //gameArena.Seed(1, 2);
+            //gameArena.Seed(5, 2);
+            //gameArena.Seed(6, 2);
+            //gameArena.Seed(7, 2);
 
             //Random
 
@@ -69,22 +124,38 @@ namespace Rogedo.LifeEngine.Rig
             //    gameArena.Seed(point.X, point.Y);
             //}
 
+            // Found by me 1
+            gameArena.Seed(1, 1);
+            gameArena.Seed(3, 0);
+            gameArena.Seed(2, 3);
+            gameArena.Seed(3, 2);
+            gameArena.Seed(0, 1);
+            gameArena.Seed(3, 1);
+            gameArena.Seed(2, 2);
+
             //gameArena.InitialiseRandomly(dimension);
 
             gameArena.Pad();
 
             Console.Clear();
             Console.CursorVisible = false;
-            while (gameArena.GetPopulation() > 0 && !gameArena.Repeating)
+            //bool bail = false;
+            while (gameArena.GetPopulation() > 0 && !gameArena.Repeating //&& !bail
+                )
             {
+                //int currentTot = gameArena.GetPopulation();
                 //Console.Clear();
                 PrintArena(gameArena, gameArena.CurrentDimension);
                 gameArena.MakeNextGeneration();
-                System.Threading.Thread.Sleep(100);                
+                //System.Threading.Thread.Sleep(10000);
+                int newTot = gameArena.GetPopulation();
+
+                //if (currentTot == newTot)
+                  //  bail = true;
             }
 
             Console.CursorVisible = true;
-        }
+        }       
 
         static void PrintArena(IArena arena, int dimension)
         {
@@ -126,14 +197,14 @@ namespace Rogedo.LifeEngine.Rig
             else
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                
-                Console.WriteLine($"Generation: {arena.GetGeneration()}");                
-                Console.WriteLine($"Population: {arena.GetPopulation()} ");                
+
+                Console.WriteLine($"Generation: {arena.GetGeneration()}");
+                Console.WriteLine($"Population: {arena.GetPopulation()} ");
                 Console.WriteLine($"Dimension: {arena.CurrentDimension} ");
                 Console.WriteLine();
             }
 
-            
+
             Console.ForegroundColor = defaultColour;
         }
 

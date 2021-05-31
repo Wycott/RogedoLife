@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Rogedo.LifeEngine.Tools\Rogedo.LifeEngine.Tools.csproj" />
     <ProjectReference Include="..\Rogedo.LifeEngine\Rogedo.LifeEngine.csproj" />
   </ItemGroup>
 
