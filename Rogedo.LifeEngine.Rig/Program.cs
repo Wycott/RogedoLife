@@ -10,16 +10,25 @@ namespace Rogedo.LifeEngine.Rig
     class Program
     {
         static void Main()
+        {            
+            //Runner();
+            //Finder();
+            Demo();
+        }
+
+        static void Demo()
         {
-            //while(true)
-                //Runner();
-            Finder();
+            while (true)
+            {
+                Runner();
+                System.Threading.Thread.Sleep(5000);
+            }
         }
 
         static void Finder()
         {
             int bestGenerations = 0;
-            int dimension = 5;
+            int dimension = 10;
             int runs = 0;
             Stopwatch sw = new Stopwatch();
 
