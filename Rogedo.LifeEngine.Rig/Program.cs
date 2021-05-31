@@ -15,8 +15,8 @@ namespace Rogedo.LifeEngine.Rig
             if (args.Length == 1)
                 dimensions = Convert.ToInt32(args[0]);
             //Runner();
-            Finder(dimensions);
-            //Demo();
+            //Finder(dimensions);
+            Demo();
         }
 
         static void Demo()
@@ -30,6 +30,7 @@ namespace Rogedo.LifeEngine.Rig
 
         static void Finder(int dimension)
         {
+            const int breakAt = 500;
             int bestGenerations = 0;
             //int dimension = 4;
             int runs = 0;
@@ -52,33 +53,48 @@ namespace Rogedo.LifeEngine.Rig
                 gameArena.Pad();
 
                 bool bail = false;
-                while (gameArena.GetPopulation() > 0 && !gameArena.Repeating && !bail)
+                bool breakOut = false;
+                while (gameArena.GetPopulation() > 0 && !gameArena.Repeating && !bail && !breakOut
+                    )
                 {
                     int currentTot = gameArena.GetPopulation();
                     gameArena.MakeNextGeneration();
+                    if (gameArena.GetGeneration() == breakAt)
+                    {
+                        //Console.WriteLine("Bailing...");
+                        breakOut = true;
+                    }
                     int newTot = gameArena.GetPopulation();
 
                     if (currentTot == newTot)
-                        bail = true;                    
+                      bail = true;                    
                 }
 
                 runs++;
 
-                int generations = gameArena.GetGeneration();
-                if (generations > bestGenerations)
+                if (!breakOut)
                 {
-                    bestGenerations = generations;
-                    Console.WriteLine($"Best generation: {generations} after {runs} runs, dimension: {dimension}, cells: {dataPoints.Count}");
-                    foreach (var p in dataPoints)
+                    int generations = gameArena.GetGeneration();
+                    if (generations > bestGenerations)
                     {
-                        Console.Write($"{p.X},{p.Y} ");
+                        bestGenerations = generations;
+                        Console.WriteLine($"Best generation: {generations} after {runs} runs, dimension: {dimension}, cells: {dataPoints.Count}");
+                        foreach (var p in dataPoints)
+                        {
+                            Console.Write($"{p.X},{p.Y} ");
+                        }
+                        Console.WriteLine();
+                        Console.WriteLine();
                     }
-                    Console.WriteLine();
-                    Console.WriteLine();
                 }
 
+                //if (runs % 10000 == 0)
+                //{
+                //    Console.WriteLine($"Runs: {runs}, Elapsed: {sw.ElapsedMilliseconds / 1000 / 60} mins");
+                //}
+
                 if (runs % 100000 == 0)
-                { 
+                {
                     Console.WriteLine($"Runs: {runs}, Elapsed: {sw.ElapsedMilliseconds/1000/60} mins");
                     return;
                 }
@@ -164,23 +180,23 @@ namespace Rogedo.LifeEngine.Rig
 
             Console.Clear();
             Console.CursorVisible = false;
-            //bool bail = false;
+            bool bail = false;
             while (gameArena.GetPopulation() > 0 && !gameArena.Repeating //&& !bail
                 )
             {
-                //int currentTot = gameArena.GetPopulation();
+                int currentTot = gameArena.GetPopulation();
                 //Console.Clear();
                 PrintArena(gameArena, gameArena.CurrentDimension);
                 gameArena.MakeNextGeneration();
                 //System.Threading.Thread.Sleep(10000);
                 int newTot = gameArena.GetPopulation();
 
-                //if (currentTot == newTot)
-                  //  bail = true;
+                if (currentTot == newTot)
+                  bail = true;
             }
 
             Console.CursorVisible = true;
-        }       
+        }
 
         static void PrintArena(IArena arena, int dimension)
         {

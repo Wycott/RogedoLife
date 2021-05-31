@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Rogedo.LifeEngine.Rig": {
+      "commandName": "Project",
+      "commandLineArgs": "8"
+    }
+  }
+}

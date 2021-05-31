@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Rogedo.LifeEngine.Interfaces\Rogedo.LifeEngine.Interfaces.csproj" />
+    <ProjectReference Include="..\Rogedo.LifeEngine.Tools\Rogedo.LifeEngine.Tools.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Text;
 using System.Linq;
 using System;
+using Rogedo.LifeEngine.Tools;
 
 namespace Rogedo.LifeEngine.Domain
 {
@@ -77,7 +78,7 @@ namespace Rogedo.LifeEngine.Domain
 
         private bool PopulateCell()
         {
-            //List<char> wins = new List<char> { '0', '1', '2', '3' };
+            
             List<char> wins = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7' };
             var guid = Guid.NewGuid().ToString();
             var candidate = guid.Substring(0, 1).ToCharArray()[0];
@@ -85,6 +86,11 @@ namespace Rogedo.LifeEngine.Domain
             return wins.Contains(candidate);
 
 
+        }
+
+        public string GetSignatureHash()
+        {
+            return Hash.GetHashString(GetSignature());
         }
 
         public string GetSignature()
