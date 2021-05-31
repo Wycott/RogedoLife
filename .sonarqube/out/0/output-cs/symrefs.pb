@@ -1,4 +1,4 @@
-•
+­
 ;D:\RobDev\RogedoLife\Rogedo.LifeEngine.Interfaces\IArena.cs
 
  
@@ -37,7 +37,11 @@
 
  
 
-$ -l
+$ -
+
+ 
+
+ l
 :D:\RobDev\RogedoLife\Rogedo.LifeEngine.Interfaces\ICell.cs
 
  

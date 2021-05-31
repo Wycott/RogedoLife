@@ -2,6 +2,7 @@
 using Rogedo.LifeEngine.Interfaces;
 using Rogedo.LifeEngine.Tools;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 
@@ -11,17 +12,21 @@ namespace Rogedo.LifeEngine.Rig
     {
         static void Main(string[] args)
         {
-            int dimensions = 0;
-            if (args.Length == 1)
-                dimensions = Convert.ToInt32(args[0]);
+            string flag = args[0];
 
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            Runner();
-            sw.Stop();
-            Console.WriteLine($"Elapsed: {sw.ElapsedMilliseconds / 1000}s");
-            //Finder(dimensions);
-            //Demo();
+            switch (flag)
+            {
+                case "-r":
+                    Runner();
+                    break;
+                case "-d":
+                    Demo();
+                    break;
+                case "-f":
+                    int dimensions = Convert.ToInt32(args[1]);
+                    Finder(dimensions);
+                    break;
+            }
         }
 
         static void Demo()
@@ -37,7 +42,7 @@ namespace Rogedo.LifeEngine.Rig
         {
             const int breakAt = 500;
 
-            int bestGenerations = 0;            
+            int bestGenerations = 0;
             int runs = 0;
             Stopwatch sw = new Stopwatch();
 
@@ -45,58 +50,30 @@ namespace Rogedo.LifeEngine.Rig
             Console.Clear();
             while (true)
             {
-                IArena gameArena = new Arena();
-                gameArena.Initialise(dimension);
+                GetRandomArena(dimension, out IArena gameArena, out List<Point> dataPoints);
 
-                var dataPoints = new RandomArenaGenerator().Execute(dimension, 10);
-
-                foreach (var dataPoint in dataPoints)
-                {
-                    gameArena.Seed(dataPoint.X, dataPoint.Y);
-                }
-
-                gameArena.Pad();
-
-                bool bail = false;
                 bool breakOut = false;
-                while (gameArena.GetPopulation() > 0 && !gameArena.Repeating && !bail && !breakOut
-                    )
+
+                while (gameArena.GetPopulation() > 0 && !gameArena.Repeating && !breakOut)
                 {
                     int currentTot = gameArena.GetPopulation();
                     gameArena.MakeNextGeneration();
-                    if (gameArena.GetGeneration() == breakAt)
-                    {
-                        //Console.WriteLine("Bailing...");
-                        breakOut = true;
-                    }
                     int newTot = gameArena.GetPopulation();
 
-                    if (currentTot == newTot)
-                        bail = true;
+                    if (currentTot == newTot || gameArena.GetGeneration() == breakAt)
+                        breakOut = true;
                 }
 
                 runs++;
 
-                if (!breakOut)
-                {
-                    int generations = gameArena.GetGeneration();
-                    if (generations > bestGenerations)
-                    {
-                        bestGenerations = generations;
-                        Console.WriteLine($"Best generation: {generations} after {runs} runs, dimension: {dimension}, cells: {dataPoints.Count}");
-                        foreach (var p in dataPoints)
-                        {
-                            Console.Write($"{p.X},{p.Y} ");
-                        }
-                        Console.WriteLine();
-                        Console.WriteLine();
-                    }
-                }
+                int generations = gameArena.GetGeneration();
 
-                //if (runs % 10000 == 0)
-                //{
-                //    Console.WriteLine($"Runs: {runs}, Elapsed: {sw.ElapsedMilliseconds / 1000 / 60} mins");
-                //}
+                if (generations > bestGenerations && !breakOut)
+                {
+                    bestGenerations = generations;
+                    Console.WriteLine($"Best generation: {generations} after {runs} runs, dimension: {dimension}, cells: {dataPoints.Count}");
+                    DumpDataPoints(dataPoints);
+                }
 
                 if (runs % 100000 == 0)
                 {
@@ -106,71 +83,36 @@ namespace Rogedo.LifeEngine.Rig
             }
         }
 
+        private static void DumpDataPoints(List<Point> dataPoints)
+        {
+            foreach (var p in dataPoints)
+            {
+                Console.Write($"{p.X},{p.Y} ");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        private static void GetRandomArena(int dimension, out IArena gameArena, out List<Point> dataPoints)
+        {
+            gameArena = new Arena();
+            gameArena.Initialise(dimension);
+
+            dataPoints = new RandomArenaGenerator().Execute(dimension, 10);
+            foreach (var dataPoint in dataPoints)
+            {
+                gameArena.Seed(dataPoint.X, dataPoint.Y);
+            }
+
+            gameArena.Pad();
+        }
+
         static void Runner()
         {
             int dimension = 4;
 
             IArena gameArena = new Arena();
             gameArena.Initialise(dimension);
-
-            // R pentomino
-            //gameArena.Seed(1, 0);
-            //gameArena.Seed(1, 1);
-            //gameArena.Seed(1, 2);
-            //gameArena.Seed(0, 1);
-            //gameArena.Seed(2, 0);
-
-            // S pentomino
-            //gameArena.Seed(2, 1);
-            //gameArena.Seed(3, 1);
-            //gameArena.Seed(0, 2);
-            //gameArena.Seed(1, 2);
-            //gameArena.Seed(2, 2);
-
-            // U pentomino
-            //gameArena.Seed(0, 0);
-            //gameArena.Seed(0, 1);
-            //gameArena.Seed(1, 1);
-            //gameArena.Seed(2, 0);
-            //gameArena.Seed(2, 1);
-
-
-            // Hexomino 1
-            //gameArena.Seed(0, 0);
-            //gameArena.Seed(1, 0);
-            //gameArena.Seed(2, 0);
-            //gameArena.Seed(3, 0);
-            //gameArena.Seed(4, 0);
-            //gameArena.Seed(4, 1);
-
-            // Hexomino 2
-            //gameArena.Seed(0, 0);
-            //gameArena.Seed(0, 1);
-            //gameArena.Seed(1, 1);
-            //gameArena.Seed(2, 1);
-            //gameArena.Seed(3, 1);
-            //gameArena.Seed(3, 2);
-
-            // Long runner
-            //gameArena.Seed(6, 0);
-            //gameArena.Seed(0, 1);
-            //gameArena.Seed(1, 1);
-
-
-            //gameArena.Seed(1, 2);
-            //gameArena.Seed(5, 2);
-            //gameArena.Seed(6, 2);
-            //gameArena.Seed(7, 2);
-
-            //Random
-
-            //for (var c = 0; c < 9; c++)
-            //{
-            //    var point = GetNextPoint();
-            //    gameArena.Seed(point.X, point.Y);
-            //}
-
-            // Found by me 1
             gameArena.Seed(1, 1);
             gameArena.Seed(3, 0);
             gameArena.Seed(2, 3);
@@ -178,28 +120,16 @@ namespace Rogedo.LifeEngine.Rig
             gameArena.Seed(0, 1);
             gameArena.Seed(3, 1);
             gameArena.Seed(2, 2);
-
-            //gameArena.InitialiseRandomly(dimension);
-
             gameArena.Pad();
 
             Console.Clear();
+
             Console.CursorVisible = false;
-            bool bail;
-            while (gameArena.GetPopulation() > 0 && !gameArena.Repeating //&& !bail
-                )
+            while (gameArena.GetPopulation() > 0 && !gameArena.Repeating)
             {
-                int currentTot = gameArena.GetPopulation();
-                //Console.Clear();
                 PrintArena(gameArena, gameArena.CurrentDimension);
                 gameArena.MakeNextGeneration();
-                //System.Threading.Thread.Sleep(10000);
-                int newTot = gameArena.GetPopulation();
-
-                if (currentTot == newTot)
-                    bail = true;
             }
-
             Console.CursorVisible = true;
         }
 
@@ -250,23 +180,7 @@ namespace Rogedo.LifeEngine.Rig
                 Console.WriteLine();
             }
 
-
             Console.ForegroundColor = defaultColour;
         }
-
-        private static Point GetNextPoint()
-        {
-            var guid = Guid.NewGuid().ToString().Replace("-", "");
-            guid = guid.Replace("a", "");
-            guid = guid.Replace("b", "");
-            guid = guid.Replace("c", "");
-            guid = guid.Replace("d", "");
-            guid = guid.Replace("e", "");
-            guid = guid.Replace("f", "");
-            int x = Convert.ToInt32(guid.Substring(0, 1));
-            int y = Convert.ToInt32(guid.Substring(1, 1));
-            return new Point(x, y);
-        }
-
     }
 }

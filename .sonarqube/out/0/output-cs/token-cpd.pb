@@ -1,4 +1,4 @@
-»
+ø
 ;D:\RobDev\RogedoLife\Rogedo.LifeEngine.Interfaces\IArena.cs
 	namespace 	
 Rogedo
@@ -100,9 +100,20 @@ Initialise 
 int  #
 	dimension$ -
 )- .
-;. /
-} 
-} ©
+;. /
+void 
+Pad 
+( 
+) 
+; 
+int 
+CurrentDimension 
+{ 
+get "
+;" #
+}$ %
+} 
+} ©
 :D:\RobDev\RogedoLife\Rogedo.LifeEngine.Interfaces\ICell.cs
 	namespace 	
 Rogedo

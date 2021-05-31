@@ -78,14 +78,12 @@ namespace Rogedo.LifeEngine.Domain
 
         private bool PopulateCell()
         {
-            
+
             List<char> wins = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7' };
             var guid = Guid.NewGuid().ToString();
             var candidate = guid.Substring(0, 1).ToCharArray()[0];
 
             return wins.Contains(candidate);
-
-
         }
 
         public string GetSignatureHash()
@@ -172,11 +170,7 @@ namespace Rogedo.LifeEngine.Domain
             var signature = GetSignatureHash();
             if (!Signatures.Contains(signature))
             {
-                //int currentLength = signature.Length;
                 Signatures.Add(signature);
-                //Console.WriteLine($"Pre: {Signatures.Count}");
-                //Signatures.RemoveAll(x => x.Length != currentLength);
-                //Console.WriteLine($"Post: {Signatures.Count}");
             }
 
             Pad();
@@ -223,9 +217,13 @@ namespace Rogedo.LifeEngine.Domain
 
         public void Pad()
         {
+            CheckTopLeftPadding();
+            CheckBottomRightPadding();
+        }
+
+        private void CheckTopLeftPadding()
+        {
             bool anyAtTop = false;
-            bool anyAtBottom = false;
-            bool anyAtRight = false;
             bool anyAtLeft = false;
 
             for (int x = 0; x < Dimension; x++)
@@ -240,20 +238,29 @@ namespace Rogedo.LifeEngine.Domain
 
             for (int x = 0; x < Dimension; x++)
             {
-                var cell2 = GetCellAt(x, Dimension - 1);
-                if (cell2.Generation == Interfaces.Types.CellGeneration.Current)
-                {
-                    anyAtBottom = true;
-                    break;
-                }
-            }
-
-            for (int x = 0; x < Dimension; x++)
-            {
                 var cell3 = GetCellAt(0, x);
                 if (cell3.Generation == Interfaces.Types.CellGeneration.Current)
                 {
                     anyAtLeft = true;
+                    break;
+                }
+            }
+
+            if (anyAtTop || anyAtLeft)
+                PadTopOrLeft();
+        }
+
+        private void CheckBottomRightPadding()
+        {
+            bool anyAtBottom = false;
+            bool anyAtRight = false;
+
+            for (int x = 0; x < Dimension; x++)
+            {
+                var cell2 = GetCellAt(x, Dimension - 1);
+                if (cell2.Generation == Interfaces.Types.CellGeneration.Current)
+                {
+                    anyAtBottom = true;
                     break;
                 }
             }
@@ -267,9 +274,6 @@ namespace Rogedo.LifeEngine.Domain
                     break;
                 }
             }
-
-            if (anyAtTop || anyAtLeft)
-                PadTopOrLeft();
 
             if (anyAtBottom || anyAtRight)
                 PadBottomOrRight();

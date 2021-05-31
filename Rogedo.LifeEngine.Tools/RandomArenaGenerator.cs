@@ -5,9 +5,7 @@ using System.Linq;
 namespace Rogedo.LifeEngine.Tools
 {
     public class RandomArenaGenerator
-    {
-        private string DataStream { get; set; }
-
+    {        
         public List<Point> Execute(int dimensions, int cells)
         {
             List<Point> retVal = new List<Point>();
