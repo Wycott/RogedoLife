@@ -36,6 +36,7 @@ namespace Rogedo.LifeEngine.Rig
             Stopwatch sw = new Stopwatch();
 
             sw.Start();
+            Console.Clear();
             while (true)
             {
                 IArena gameArena = new Arena();
@@ -67,7 +68,7 @@ namespace Rogedo.LifeEngine.Rig
                 if (generations > bestGenerations)
                 {
                     bestGenerations = generations;
-                    Console.WriteLine($"Best generation: {generations} after {runs} runs, dimension: {dimension}");
+                    Console.WriteLine($"Best generation: {generations} after {runs} runs, dimension: {dimension}, cells: {dataPoints.Count}");
                     foreach (var p in dataPoints)
                     {
                         Console.Write($"{p.X},{p.Y} ");
