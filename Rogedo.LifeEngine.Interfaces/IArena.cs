@@ -15,5 +15,7 @@ namespace Rogedo.LifeEngine.Interfaces
         int GetGeneration();
         bool Repeating { get; }
         void InitialiseRandomly(int dimension);
+        void Pad();
+        int CurrentDimension { get; }
     }
 }

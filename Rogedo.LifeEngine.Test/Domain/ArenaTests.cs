@@ -30,7 +30,7 @@ namespace Rogedo.LifeEngine.Test.Domain
         {
             const int dim = 2;
             const string expectedSignature = "0000";
-            const int expectedGeneration = 0;
+            const int expectedGeneration = 1;
 
             IArena arena = new Arena();
             arena.Initialise(dim);
@@ -45,7 +45,7 @@ namespace Rogedo.LifeEngine.Test.Domain
         {
             const int dim = 2;
             const string expectedSignature = "1001";
-            const int expectedGeneration = 0;
+            const int expectedGeneration = 1;
 
             IArena arena = new Arena();
             arena.Initialise(dim);
@@ -63,7 +63,7 @@ namespace Rogedo.LifeEngine.Test.Domain
             const string expectedSignature1 = "0000000100001000010000000";
             const string expectedSignature2 = "0000000000011100000000000";
             const int expectedPopulation = 3;
-            const int expectedGeneration = 1;
+            const int expectedGeneration = 2;
 
             IArena arena = new Arena();
             arena.Initialise(dim);
@@ -90,7 +90,7 @@ namespace Rogedo.LifeEngine.Test.Domain
             const int dim = 4;
             const string expectedSignature = "0000011001100000";            
             const int expectedPopulation = 4;
-            const int expectedGeneration = 1;
+            const int expectedGeneration = 2;
 
             IArena arena = new Arena();
             arena.Initialise(dim);

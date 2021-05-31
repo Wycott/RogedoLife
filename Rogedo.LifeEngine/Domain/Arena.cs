@@ -9,6 +9,7 @@ namespace Rogedo.LifeEngine.Domain
 {
     public class Arena : IArena
     {
+        public List<ICell> DummyArenaCells { get; private set; }
         public List<ICell> ArenaCells { get; private set; }
         private int Dimension { get; set; }
         public int CellGeneration { get; private set; }
@@ -22,9 +23,18 @@ namespace Rogedo.LifeEngine.Domain
             }
         }
 
+        public int CurrentDimension
+        {
+            get
+            {
+                return Dimension;
+            }
+        }
+
         public Arena()
         {
             ArenaCells = new List<ICell>();
+            DummyArenaCells = new List<ICell>();
             Signatures = new List<string>();
         }
 
@@ -102,7 +112,7 @@ namespace Rogedo.LifeEngine.Domain
         }
 
         public void MakeNextGeneration()
-        {            
+        {
             List<Point> dying = new List<Point>();
 
             bool cellProcessed;
@@ -156,6 +166,8 @@ namespace Rogedo.LifeEngine.Domain
             var signature = GetSignature();
             if (!Signatures.Contains(signature))
                 Signatures.Add(signature);
+
+            Pad();
         }
 
         public int GetPopulation()
@@ -165,7 +177,7 @@ namespace Rogedo.LifeEngine.Domain
 
         public int GetGeneration()
         {
-            return CellGeneration;
+            return CellGeneration + 1;
         }
 
         private int GetIndex(int x, int y)
@@ -195,6 +207,116 @@ namespace Rogedo.LifeEngine.Domain
                 }
             }
             return liveTally;
+        }
+
+        public void Pad()
+        {
+            bool anyAtTop = false;
+            bool anyAtBottom = false;
+            bool anyAtRight = false;
+            bool anyAtLeft = false;
+
+            for (int x = 0; x < Dimension; x++)
+            {
+                var cell1 = GetCellAt(x, 0);
+                if (cell1.Generation == Interfaces.Types.CellGeneration.Current)
+                {
+                    anyAtTop = true;
+                    break;
+                }
+            }
+
+            for (int x = 0; x < Dimension; x++)
+            {
+                var cell2 = GetCellAt(x, Dimension - 1);
+                if (cell2.Generation == Interfaces.Types.CellGeneration.Current)
+                {
+                    anyAtBottom = true;
+                    break;
+                }
+            }
+
+            for (int x = 0; x < Dimension; x++)
+            {
+                var cell3 = GetCellAt(0, x);
+                if (cell3.Generation == Interfaces.Types.CellGeneration.Current)
+                {
+                    anyAtLeft = true;
+                    break;
+                }
+            }
+
+            for (int x = 0; x < Dimension; x++)
+            {
+                var cell4 = GetCellAt(Dimension - 1, x);
+                if (cell4.Generation == Interfaces.Types.CellGeneration.Current)
+                {
+                    anyAtRight = true;
+                    break;
+                }
+            }
+
+            if (anyAtTop || anyAtLeft)
+                PadTopOrLeft();
+
+            if (anyAtBottom || anyAtRight)
+                PadBottomOrRight();
+        }
+
+        private void PadTopOrLeft()
+        {
+            DummyArenaCells = new List<ICell>();
+
+            foreach (var cell in ArenaCells)
+            {
+                DummyArenaCells.Add(cell);
+            }
+
+            ArenaCells = new List<ICell>();
+
+            // Add top row of new size
+            for (int x = 0; x <= Dimension; x++)
+            {
+                ArenaCells.Add(new Cell());
+            }
+
+            for (int y = 0; y < Dimension; y++)
+            {
+                ArenaCells.Add(new Cell());
+                for (int x = 0; x < Dimension; x++)
+                {
+                    ArenaCells.Add(DummyArenaCells[GetIndex(x, y)]);
+                }
+            }
+            Dimension++;
+        }
+
+        private void PadBottomOrRight()
+        {
+            DummyArenaCells = new List<ICell>();
+
+            foreach (var cell in ArenaCells)
+            {
+                DummyArenaCells.Add(cell);
+            }
+
+            ArenaCells = new List<ICell>();
+
+            for (int y = 0; y < Dimension; y++)
+            {
+                for (int x = 0; x < Dimension; x++)
+                {
+                    ArenaCells.Add(DummyArenaCells[GetIndex(x, y)]);
+                }
+                ArenaCells.Add(new Cell());
+            }
+
+            // Add bottom row of new size
+            for (int x = 0; x <= Dimension; x++)
+            {
+                ArenaCells.Add(new Cell());
+            }
+            Dimension++;
         }
     }
 }
