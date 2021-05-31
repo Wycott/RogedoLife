@@ -23,9 +23,8 @@ namespace Rogedo.LifeEngine.Tools
 
                 Point newPoint = new Point(x, y);
 
-                //if (!retVal.Contains(newPoint))
-                    retVal.Add(newPoint);
-                
+                retVal.Add(newPoint);
+
                 dataStream = dataStream.Substring(2);
             }
 
@@ -38,7 +37,7 @@ namespace Rogedo.LifeEngine.Tools
 
             if (dimensions < 10)
             {
-                for (int x = dimensions; x <10; x++)
+                for (int x = dimensions; x < 10; x++)
                 {
                     badGuys.Add(x.ToString());
                 }

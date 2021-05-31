@@ -6,11 +6,13 @@ namespace Rogedo.LifeEngine.Tools.Test
     public class RandomArenaGeneratorTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void WhenGeneratorExecuted_ThenThereShouldBeSomeDataPoints()
         {
-            const int expectedNumberOfCells = 10;
+            const int dimensions = 10;
+            const int numberOfCells = 10;
+
             var generator = new RandomArenaGenerator();
-            var data = generator.Execute(10, expectedNumberOfCells);
+            var data = generator.Execute(dimensions, numberOfCells);
 
             Assert.IsTrue(data.Count > 0);
         }

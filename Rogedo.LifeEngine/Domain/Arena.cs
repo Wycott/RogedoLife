@@ -169,9 +169,15 @@ namespace Rogedo.LifeEngine.Domain
 
             CellGeneration++;
 
-            var signature = GetSignature();
+            var signature = GetSignatureHash();
             if (!Signatures.Contains(signature))
+            {
+                //int currentLength = signature.Length;
                 Signatures.Add(signature);
+                //Console.WriteLine($"Pre: {Signatures.Count}");
+                //Signatures.RemoveAll(x => x.Length != currentLength);
+                //Console.WriteLine($"Post: {Signatures.Count}");
+            }
 
             Pad();
         }

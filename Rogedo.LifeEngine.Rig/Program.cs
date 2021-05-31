@@ -36,8 +36,8 @@ namespace Rogedo.LifeEngine.Rig
         static void Finder(int dimension)
         {
             const int breakAt = 500;
-            int bestGenerations = 0;
-            //int dimension = 4;
+
+            int bestGenerations = 0;            
             int runs = 0;
             Stopwatch sw = new Stopwatch();
 
@@ -185,7 +185,7 @@ namespace Rogedo.LifeEngine.Rig
 
             Console.Clear();
             Console.CursorVisible = false;
-            bool bail = false;
+            bool bail;
             while (gameArena.GetPopulation() > 0 && !gameArena.Repeating //&& !bail
                 )
             {
