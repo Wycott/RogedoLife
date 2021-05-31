@@ -19,7 +19,7 @@ namespace Rogedo.LifeEngine.Rig
         static void Finder()
         {
             int bestGenerations = 0;
-            int dimension = 4;
+            int dimension = 5;
             int runs = 0;
             Stopwatch sw = new Stopwatch();
 
@@ -55,7 +55,7 @@ namespace Rogedo.LifeEngine.Rig
                 if (generations > bestGenerations)
                 {
                     bestGenerations = generations;
-                    Console.WriteLine($"Best generation: {generations} after {runs} runs");
+                    Console.WriteLine($"Best generation: {generations} after {runs} runs, dimension: {dimension}");
                     foreach (var p in dataPoints)
                     {
                         Console.Write($"{p.X},{p.Y} ");
