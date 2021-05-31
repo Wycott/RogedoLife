@@ -53,21 +53,21 @@ namespace Rogedo.LifeEngine.Rig
             //gameArena.Seed(3, 2);
 
             // Long runner
-            //gameArena.Seed(6, 0);
-            //gameArena.Seed(0, 1);
-            //gameArena.Seed(1, 1);
-            //gameArena.Seed(1, 2);
-            //gameArena.Seed(5, 2);
-            //gameArena.Seed(6, 2);
-            //gameArena.Seed(7, 2);
+            gameArena.Seed(6, 0);
+            gameArena.Seed(0, 1);
+            gameArena.Seed(1, 1);
+            gameArena.Seed(1, 2);
+            gameArena.Seed(5, 2);
+            gameArena.Seed(6, 2);
+            gameArena.Seed(7, 2);
 
             //Random
 
-            for (var c = 0; c < 9; c++)
-            {
-                var point = GetNextPoint();
-                gameArena.Seed(point.X, point.Y);
-            }
+            //for (var c = 0; c < 9; c++)
+            //{
+            //    var point = GetNextPoint();
+            //    gameArena.Seed(point.X, point.Y);
+            //}
 
             //gameArena.InitialiseRandomly(dimension);
 
@@ -80,7 +80,7 @@ namespace Rogedo.LifeEngine.Rig
                 //Console.Clear();
                 PrintArena(gameArena, gameArena.CurrentDimension);
                 gameArena.MakeNextGeneration();
-                //System.Threading.Thread.Sleep(250);                
+                System.Threading.Thread.Sleep(100);                
             }
 
             Console.CursorVisible = true;
