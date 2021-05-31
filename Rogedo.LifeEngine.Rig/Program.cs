@@ -9,11 +9,14 @@ namespace Rogedo.LifeEngine.Rig
 {
     class Program
     {
-        static void Main()
-        {            
+        static void Main(string[] args)
+        {
+            int dimensions = 0;
+            if (args.Length == 1)
+                dimensions = Convert.ToInt32(args[0]);
             //Runner();
-            //Finder();
-            Demo();
+            Finder(dimensions);
+            //Demo();
         }
 
         static void Demo()
@@ -25,10 +28,10 @@ namespace Rogedo.LifeEngine.Rig
             }
         }
 
-        static void Finder()
+        static void Finder(int dimension)
         {
             int bestGenerations = 0;
-            int dimension = 10;
+            //int dimension = 4;
             int runs = 0;
             Stopwatch sw = new Stopwatch();
 
@@ -74,7 +77,10 @@ namespace Rogedo.LifeEngine.Rig
                 }
 
                 if (runs % 1000000 == 0)
+                { 
                     Console.WriteLine($"Runs: {runs/ 1000000}M, Elapsed: {sw.ElapsedMilliseconds/1000/60} mins");
+                    return;
+                }
             }
         }
 
