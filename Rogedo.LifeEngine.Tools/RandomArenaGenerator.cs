@@ -23,13 +23,13 @@ namespace Rogedo.LifeEngine.Tools
 
                 Point newPoint = new Point(x, y);
 
-                if (!retVal.Contains(newPoint))
+                //if (!retVal.Contains(newPoint))
                     retVal.Add(newPoint);
                 
                 dataStream = dataStream.Substring(2);
             }
 
-            return retVal.OrderBy(p => p.X).ThenBy(q => q.Y).ToList();
+            return retVal.Distinct().OrderBy(p => p.X).ThenBy(q => q.Y).ToList();
         }
 
         private string GetDefaultDataStream(int dimensions)

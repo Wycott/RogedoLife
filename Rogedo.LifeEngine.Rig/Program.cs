@@ -2,6 +2,7 @@
 using Rogedo.LifeEngine.Interfaces;
 using Rogedo.LifeEngine.Tools;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 
 namespace Rogedo.LifeEngine.Rig
@@ -10,7 +11,8 @@ namespace Rogedo.LifeEngine.Rig
     {
         static void Main()
         {
-            //Runner();
+            //while(true)
+                //Runner();
             Finder();
         }
 
@@ -19,7 +21,9 @@ namespace Rogedo.LifeEngine.Rig
             int bestGenerations = 0;
             int dimension = 4;
             int runs = 0;
+            Stopwatch sw = new Stopwatch();
 
+            sw.Start();
             while (true)
             {
                 IArena gameArena = new Arena();
@@ -42,9 +46,10 @@ namespace Rogedo.LifeEngine.Rig
                     int newTot = gameArena.GetPopulation();
 
                     if (currentTot == newTot)
-                        bail = true;
-                    runs++;
+                        bail = true;                    
                 }
+
+                runs++;
 
                 int generations = gameArena.GetGeneration();
                 if (generations > bestGenerations)
@@ -56,7 +61,11 @@ namespace Rogedo.LifeEngine.Rig
                         Console.Write($"{p.X},{p.Y} ");
                     }
                     Console.WriteLine();
+                    Console.WriteLine();
                 }
+
+                if (runs % 1000000 == 0)
+                    Console.WriteLine($"Runs: {runs/ 1000000}M, Elapsed: {sw.ElapsedMilliseconds/1000/60} mins");
             }
         }
 
