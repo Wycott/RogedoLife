@@ -5,6 +5,7 @@ using System.Text;
 using System.Linq;
 using System;
 using Rogedo.LifeEngine.Tools;
+using Generation = Rogedo.LifeEngine.Interfaces.Types.CellGeneration;
 
 namespace Rogedo.LifeEngine.Domain
 {
@@ -69,8 +70,10 @@ namespace Rogedo.LifeEngine.Domain
                 for (int y = 0; y < dimension; y++)
                 {
                     var cell = new Cell();
+
                     if (PopulateCell())
-                        cell.SetGeneration(Interfaces.Types.CellGeneration.Current);
+                        cell.SetGeneration(Generation.Current);
+
                     ArenaCells.Add(cell);
                 }
             }
@@ -78,7 +81,6 @@ namespace Rogedo.LifeEngine.Domain
 
         private bool PopulateCell()
         {
-
             List<char> wins = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7' };
             var guid = Guid.NewGuid().ToString();
             var candidate = guid.Substring(0, 1).ToCharArray()[0];
@@ -94,24 +96,27 @@ namespace Rogedo.LifeEngine.Domain
         public string GetSignature()
         {
             StringBuilder sb = new StringBuilder();
+
             foreach (var cell in ArenaCells)
             {
-                var simpleCell = cell.Generation == Interfaces.Types.CellGeneration.Dead ? "0" : "1";
+                var simpleCell = cell.Generation == Generation.Dead ? "0" : "1";
                 sb.Append(simpleCell);
             }
+
             return sb.ToString();
         }
 
         public void Seed(int x, int y)
         {
             var index = GetIndex(x, y);
-            ArenaCells[index].SetGeneration(Interfaces.Types.CellGeneration.Current);
+            ArenaCells[index].SetGeneration(Generation.Current);
         }
 
         public ICell GetCellAt(int x, int y)
         {
-            if ((x < 0 || x >= Dimension) || (y < 0 || y >= Dimension))
+            if (x < 0 || x >= Dimension || y < 0 || y >= Dimension)
                 return new Cell();
+
             return ArenaCells[GetIndex(x, y)];
         }
 
@@ -120,6 +125,7 @@ namespace Rogedo.LifeEngine.Domain
             List<Point> dying = new List<Point>();
 
             bool cellProcessed;
+
             for (int x = 0; x < Dimension; x++)
             {
                 for (int y = 0; y < Dimension; y++)
@@ -127,21 +133,23 @@ namespace Rogedo.LifeEngine.Domain
                     cellProcessed = false;
                     var cell = GetCellAt(x, y);
 
-                    if (cell.Generation == Interfaces.Types.CellGeneration.Current) // Live cell
+                    if (cell.Generation == Generation.Current) // Live cell
                     {
                         var neighbourCount = GetLiveNeighbourCount(x, y);
+
                         if (neighbourCount == 2 || neighbourCount == 3)
                         {
                             cellProcessed = true; // Survives
                         }
                     }
 
-                    if (cell.Generation == Interfaces.Types.CellGeneration.Dead) // Dead cell
+                    if (cell.Generation == Generation.Dead) // Dead cell
                     {
                         var neighbourCount = GetLiveNeighbourCount(x, y);
+
                         if (neighbourCount == 3)
                         {
-                            cell.SetGeneration(Interfaces.Types.CellGeneration.Next);
+                            cell.SetGeneration(Generation.Next);
                             cellProcessed = true; // Born
                         }
                     }
@@ -156,18 +164,19 @@ namespace Rogedo.LifeEngine.Domain
 
             foreach (var cell in ArenaCells)
             {
-                if (cell.Generation == Interfaces.Types.CellGeneration.Next)
-                    cell.SetGeneration(Interfaces.Types.CellGeneration.Current);
+                if (cell.Generation == Generation.Next)
+                    cell.SetGeneration(Generation.Current);
             }
 
             foreach (var p in dying)
             {
-                GetCellAt(p.X, p.Y).SetGeneration(Interfaces.Types.CellGeneration.Dead);
+                GetCellAt(p.X, p.Y).SetGeneration(Generation.Dead);
             }
 
             CellGeneration++;
 
             var signature = GetSignatureHash();
+
             if (!Signatures.Contains(signature))
             {
                 Signatures.Add(signature);
@@ -178,7 +187,7 @@ namespace Rogedo.LifeEngine.Domain
 
         public int GetPopulation()
         {
-            return ArenaCells.Where(x => x.Generation == Interfaces.Types.CellGeneration.Current).Count();
+            return ArenaCells.Where(x => x.Generation == Generation.Current).Count();
         }
 
         public int GetGeneration()
@@ -194,6 +203,7 @@ namespace Rogedo.LifeEngine.Domain
         private int GetLiveNeighbourCount(int cx, int cy)
         {
             int liveTally = 0;
+
             for (int x = -1; x < 2; x++)
             {
                 for (int y = -1; y < 2; y++)
@@ -207,7 +217,7 @@ namespace Rogedo.LifeEngine.Domain
                     }
                     else
                     {
-                        if (GetCellAt(currentX, currentY).Generation == Interfaces.Types.CellGeneration.Current)
+                        if (GetCellAt(currentX, currentY).Generation == Generation.Current)
                             liveTally++;
                     }
                 }
@@ -229,7 +239,8 @@ namespace Rogedo.LifeEngine.Domain
             for (int x = 0; x < Dimension; x++)
             {
                 var cell1 = GetCellAt(x, 0);
-                if (cell1.Generation == Interfaces.Types.CellGeneration.Current)
+
+                if (cell1.Generation == Generation.Current)
                 {
                     anyAtTop = true;
                     break;
@@ -239,7 +250,8 @@ namespace Rogedo.LifeEngine.Domain
             for (int x = 0; x < Dimension; x++)
             {
                 var cell3 = GetCellAt(0, x);
-                if (cell3.Generation == Interfaces.Types.CellGeneration.Current)
+
+                if (cell3.Generation == Generation.Current)
                 {
                     anyAtLeft = true;
                     break;
@@ -258,7 +270,8 @@ namespace Rogedo.LifeEngine.Domain
             for (int x = 0; x < Dimension; x++)
             {
                 var cell2 = GetCellAt(x, Dimension - 1);
-                if (cell2.Generation == Interfaces.Types.CellGeneration.Current)
+
+                if (cell2.Generation == Generation.Current)
                 {
                     anyAtBottom = true;
                     break;
@@ -268,7 +281,8 @@ namespace Rogedo.LifeEngine.Domain
             for (int x = 0; x < Dimension; x++)
             {
                 var cell4 = GetCellAt(Dimension - 1, x);
-                if (cell4.Generation == Interfaces.Types.CellGeneration.Current)
+
+                if (cell4.Generation == Generation.Current)
                 {
                     anyAtRight = true;
                     break;
@@ -324,6 +338,7 @@ namespace Rogedo.LifeEngine.Domain
                 {
                     ArenaCells.Add(DummyArenaCells[GetIndex(x, y)]);
                 }
+
                 ArenaCells.Add(new Cell());
             }
 
@@ -332,6 +347,7 @@ namespace Rogedo.LifeEngine.Domain
             {
                 ArenaCells.Add(new Cell());
             }
+
             Dimension++;
         }
     }
