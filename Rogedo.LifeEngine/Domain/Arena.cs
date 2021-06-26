@@ -211,17 +211,11 @@ namespace Rogedo.LifeEngine.Domain
                     var currentX = cx + x;
                     var currentY = cy + y;
 
-                    if (x == 0 && y == 0)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        if (GetCellAt(currentX, currentY).Generation == Generation.Current)
-                            liveTally++;
-                    }
+                    if ((x != 0 || y != 0) && GetCellAt(currentX, currentY).Generation == Generation.Current)
+                        liveTally++;
                 }
             }
+
             return liveTally;
         }
 
