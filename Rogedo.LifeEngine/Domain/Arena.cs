@@ -83,7 +83,7 @@ namespace Rogedo.LifeEngine.Domain
         {
             List<char> wins = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7' };
             var guid = Guid.NewGuid().ToString();
-            var candidate = guid.Substring(0, 1).ToCharArray()[0];
+            var candidate = Convert.ToChar(guid.Substring(0, 1));
 
             return wins.Contains(candidate);
         }
@@ -133,56 +133,89 @@ namespace Rogedo.LifeEngine.Domain
                     cellProcessed = false;
                     var cell = GetCellAt(x, y);
 
-                    if (cell.Generation == Generation.Current) // Live cell
-                    {
-                        var neighbourCount = GetLiveNeighbourCount(x, y);
-
-                        if (neighbourCount == 2 || neighbourCount == 3)
-                        {
-                            cellProcessed = true; // Survives
-                        }
-                    }
-
-                    if (cell.Generation == Generation.Dead) // Dead cell
-                    {
-                        var neighbourCount = GetLiveNeighbourCount(x, y);
-
-                        if (neighbourCount == 3)
-                        {
-                            cell.SetGeneration(Generation.Next);
-                            cellProcessed = true; // Born
-                        }
-                    }
-
-                    if (!cellProcessed)
-                    {
-                        var point = new Point(x, y);
-                        dying.Add(point);
-                    }
+                    cellProcessed = CheckForSurvival(cellProcessed, x, y, cell);
+                    cellProcessed = CheckForBirth(cellProcessed, x, y, cell);
+                    CheckForDeath(dying, cellProcessed, x, y);
                 }
             }
 
+            SetGeneration();
+
+            ClearTheDead(dying);
+
+            CellGeneration++;
+
+            StoreSignature();
+
+            Pad();
+        }
+
+        private static void CheckForDeath(List<Point> dying, bool cellProcessed, int x, int y)
+        {
+            if (!cellProcessed)
+            {
+                var point = new Point(x, y);
+                dying.Add(point);
+            }
+        }
+
+        private bool CheckForBirth(bool cellProcessed, int x, int y, ICell cell)
+        {
+            if (cell.Generation == Generation.Dead) // Dead cell
+            {
+                var neighbourCount = GetLiveNeighbourCount(x, y);
+
+                if (neighbourCount == 3)
+                {
+                    cell.SetGeneration(Generation.Next);
+                    cellProcessed = true; // Born
+                }
+            }
+
+            return cellProcessed;
+        }
+
+        private bool CheckForSurvival(bool cellProcessed, int x, int y, ICell cell)
+        {
+            if (cell.Generation == Generation.Current) // Live cell
+            {
+                var neighbourCount = GetLiveNeighbourCount(x, y);
+
+                if (neighbourCount == 2 || neighbourCount == 3)
+                {
+                    cellProcessed = true; // Survives
+                }
+            }
+
+            return cellProcessed;
+        }
+
+        private void SetGeneration()
+        {
             foreach (var cell in ArenaCells)
             {
                 if (cell.Generation == Generation.Next)
                     cell.SetGeneration(Generation.Current);
             }
+        }
 
+        private void ClearTheDead(List<Point> dying)
+        {
             foreach (var p in dying)
             {
                 GetCellAt(p.X, p.Y).SetGeneration(Generation.Dead);
             }
+        }
 
-            CellGeneration++;
 
+        private void StoreSignature()
+        {
             var signature = GetSignatureHash();
 
             if (!Signatures.Contains(signature))
             {
                 Signatures.Add(signature);
             }
-
-            Pad();
         }
 
         public int GetPopulation()

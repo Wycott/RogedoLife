@@ -2,5 +2,5 @@ projectKey=life
 serverUrl=http://localhost:9000
 serverVersion=8.9.0.43852
 dashboardUrl=http://localhost:9000/dashboard?id=life
-ceTaskId=AXpISr2CJSmw1lZtN5x5
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AXpISr2CJSmw1lZtN5x5
+ceTaskId=AXpIXEXKJSmw1lZtN5x9
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXpIXEXKJSmw1lZtN5x9
