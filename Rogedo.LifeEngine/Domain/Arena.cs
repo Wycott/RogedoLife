@@ -187,7 +187,7 @@ namespace Rogedo.LifeEngine.Domain
 
         public int GetPopulation()
         {
-            return ArenaCells.Where(x => x.Generation == Generation.Current).Count();
+            return ArenaCells.Count(x => x.Generation == Generation.Current);
         }
 
         public int GetGeneration()
