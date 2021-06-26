@@ -12,20 +12,23 @@ namespace Rogedo.LifeEngine.Rig
     {
         static void Main(string[] args)
         {
-            string flag = args[0];
-
-            switch (flag)
+            if (args.Length > 1)
             {
-                case "-r":
-                    Runner();
-                    break;
-                case "-d":
-                    Demo();
-                    break;
-                case "-f":
-                    int dimensions = Convert.ToInt32(args[1]);
-                    Finder(dimensions);
-                    break;
+                string flag = args[0];
+
+                switch (flag)
+                {
+                    case "-r":
+                        Runner();
+                        break;
+                    case "-d":
+                        Demo();
+                        break;
+                    case "-f":
+                        int dimensions = Convert.ToInt32(args[1]);
+                        Finder(dimensions);
+                        break;
+                }
             }
         }
 
