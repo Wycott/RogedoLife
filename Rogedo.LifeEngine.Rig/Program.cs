@@ -47,10 +47,12 @@ namespace Rogedo.LifeEngine.Rig
 
             int bestGenerations = 0;
             int runs = 0;
-            Stopwatch sw = new Stopwatch();
 
+            Stopwatch sw = new Stopwatch();
             sw.Start();
+            
             Console.Clear();
+            
             while (true)
             {
                 GetRandomArena(dimension, out IArena gameArena, out List<Point> dataPoints);
@@ -92,6 +94,7 @@ namespace Rogedo.LifeEngine.Rig
             {
                 Console.Write($"{p.X},{p.Y} ");
             }
+
             Console.WriteLine();
             Console.WriteLine();
         }
@@ -102,6 +105,7 @@ namespace Rogedo.LifeEngine.Rig
             gameArena.Initialise(dimension);
 
             dataPoints = new RandomArenaGenerator().Execute(dimension, 10);
+
             foreach (var dataPoint in dataPoints)
             {
                 gameArena.Seed(dataPoint.X, dataPoint.Y);
@@ -114,16 +118,7 @@ namespace Rogedo.LifeEngine.Rig
         {
             int dimension = 4;
 
-            IArena gameArena = new Arena();
-            gameArena.Initialise(dimension);
-            gameArena.Seed(1, 1);
-            gameArena.Seed(3, 0);
-            gameArena.Seed(2, 3);
-            gameArena.Seed(3, 2);
-            gameArena.Seed(0, 1);
-            gameArena.Seed(3, 1);
-            gameArena.Seed(2, 2);
-            gameArena.Pad();
+            IArena gameArena = InitialiseArena(dimension);
 
             Console.Clear();
 
@@ -134,6 +129,23 @@ namespace Rogedo.LifeEngine.Rig
                 gameArena.MakeNextGeneration();
             }
             Console.CursorVisible = true;
+        }
+
+        private static IArena InitialiseArena(int dimension)
+        {
+            IArena gameArena = new Arena();
+            
+            gameArena.Initialise(dimension);
+            gameArena.Seed(1, 1);
+            gameArena.Seed(3, 0);
+            gameArena.Seed(2, 3);
+            gameArena.Seed(3, 2);
+            gameArena.Seed(0, 1);
+            gameArena.Seed(3, 1);
+            gameArena.Seed(2, 2);
+            gameArena.Pad();
+
+            return gameArena;
         }
 
         static void PrintArena(IArena arena, int dimension)
@@ -149,7 +161,9 @@ namespace Rogedo.LifeEngine.Rig
                 {
                     x = (currentCell % dimension) * 2;
                     y = currentCell / dimension;
+                    
                     Console.SetCursorPosition(x, y);
+                    
                     if (c.Generation == Interfaces.Types.CellGeneration.Dead)
                     {
                         Console.ForegroundColor = defaultColour;
