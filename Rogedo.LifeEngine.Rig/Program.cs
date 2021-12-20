@@ -4,10 +4,12 @@ using Rogedo.LifeEngine.Tools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 
 namespace Rogedo.LifeEngine.Rig
 {
+    [ExcludeFromCodeCoverage]
     internal static class Program
     {
         private static void Main(string[] args)
