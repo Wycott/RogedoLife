@@ -15,7 +15,7 @@ namespace Rogedo.LifeEngine.Domain
         public List<ICell> ArenaCells { get; private set; }
         private int Dimension { get; set; }
         public int CellGeneration { get; private set; }
-        private List<string> Signatures { get; set; }
+        private List<string> Signatures { get; }
 
         public bool Repeating
         {
@@ -50,9 +50,9 @@ namespace Rogedo.LifeEngine.Domain
             Dimension = dimension;
             ArenaCells = new List<ICell>();
 
-            for (int x = 0; x < dimension; x++)
+            for (var x = 0; x < dimension; x++)
             {
-                for (int y = 0; y < dimension; y++)
+                for (var y = 0; y < dimension; y++)
                 {
                     var cell = new Cell();
                     ArenaCells.Add(cell);
@@ -65,9 +65,9 @@ namespace Rogedo.LifeEngine.Domain
             Dimension = dimension;
             ArenaCells = new List<ICell>();
 
-            for (int x = 0; x < dimension; x++)
+            for (var x = 0; x < dimension; x++)
             {
-                for (int y = 0; y < dimension; y++)
+                for (var y = 0; y < dimension; y++)
                 {
                     var cell = new Cell();
 
@@ -81,7 +81,7 @@ namespace Rogedo.LifeEngine.Domain
 
         private bool PopulateCell()
         {
-            List<char> wins = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7' };
+            var wins = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7' };
             var guid = Guid.NewGuid().ToString();
             var candidate = Convert.ToChar(guid.Substring(0, 1));
 
@@ -95,7 +95,7 @@ namespace Rogedo.LifeEngine.Domain
 
         public string GetSignature()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             foreach (var cell in ArenaCells)
             {
@@ -122,17 +122,19 @@ namespace Rogedo.LifeEngine.Domain
 
         public void MakeNextGeneration()
         {
-            List<Point> dying = new List<Point>();
+            var dying = new List<Point>();
 
             bool cellProcessed;
 
-            for (int x = 0; x < Dimension; x++)
+            for (var x = 0; x < Dimension; x++)
             {
-                for (int y = 0; y < Dimension; y++)
+                for (var y = 0; y < Dimension; y++)
                 {
                     cellProcessed = false;
                     var cell = GetCellAt(x, y);
 
+                    // TODO: Look at this
+                    // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                     cellProcessed = CheckForSurvival(cellProcessed, x, y, cell);
                     cellProcessed = CheckForBirth(cellProcessed, x, y, cell);
                     CheckForDeath(dying, cellProcessed, x, y);
@@ -235,11 +237,11 @@ namespace Rogedo.LifeEngine.Domain
 
         private int GetLiveNeighbourCount(int cx, int cy)
         {
-            int liveTally = 0;
+            var liveTally = 0;
 
-            for (int x = -1; x < 2; x++)
+            for (var x = -1; x < 2; x++)
             {
-                for (int y = -1; y < 2; y++)
+                for (var y = -1; y < 2; y++)
                 {
                     var currentX = cx + x;
                     var currentY = cy + y;
@@ -260,10 +262,10 @@ namespace Rogedo.LifeEngine.Domain
 
         private void CheckTopLeftPadding()
         {
-            bool anyAtTop = false;
-            bool anyAtLeft = false;
+            var anyAtTop = false;
+            var anyAtLeft = false;
 
-            for (int x = 0; x < Dimension; x++)
+            for (var x = 0; x < Dimension; x++)
             {
                 var cell1 = GetCellAt(x, 0);
 
@@ -274,7 +276,7 @@ namespace Rogedo.LifeEngine.Domain
                 }
             }
 
-            for (int x = 0; x < Dimension; x++)
+            for (var x = 0; x < Dimension; x++)
             {
                 var cell3 = GetCellAt(0, x);
 
@@ -291,10 +293,10 @@ namespace Rogedo.LifeEngine.Domain
 
         private void CheckBottomRightPadding()
         {
-            bool anyAtBottom = false;
-            bool anyAtRight = false;
+            var anyAtBottom = false;
+            var anyAtRight = false;
 
-            for (int x = 0; x < Dimension; x++)
+            for (var x = 0; x < Dimension; x++)
             {
                 var cell2 = GetCellAt(x, Dimension - 1);
 
@@ -305,7 +307,7 @@ namespace Rogedo.LifeEngine.Domain
                 }
             }
 
-            for (int x = 0; x < Dimension; x++)
+            for (var x = 0; x < Dimension; x++)
             {
                 var cell4 = GetCellAt(Dimension - 1, x);
 
@@ -332,15 +334,15 @@ namespace Rogedo.LifeEngine.Domain
             ArenaCells = new List<ICell>();
 
             // Add top row of new size
-            for (int x = 0; x <= Dimension; x++)
+            for (var x = 0; x <= Dimension; x++)
             {
                 ArenaCells.Add(new Cell());
             }
 
-            for (int y = 0; y < Dimension; y++)
+            for (var y = 0; y < Dimension; y++)
             {
                 ArenaCells.Add(new Cell());
-                for (int x = 0; x < Dimension; x++)
+                for (var x = 0; x < Dimension; x++)
                 {
                     ArenaCells.Add(DummyArenaCells[GetIndex(x, y)]);
                 }
@@ -359,9 +361,9 @@ namespace Rogedo.LifeEngine.Domain
 
             ArenaCells = new List<ICell>();
 
-            for (int y = 0; y < Dimension; y++)
+            for (var y = 0; y < Dimension; y++)
             {
-                for (int x = 0; x < Dimension; x++)
+                for (var x = 0; x < Dimension; x++)
                 {
                     ArenaCells.Add(DummyArenaCells[GetIndex(x, y)]);
                 }
@@ -370,7 +372,7 @@ namespace Rogedo.LifeEngine.Domain
             }
 
             // Add bottom row of new size
-            for (int x = 0; x <= Dimension; x++)
+            for (var x = 0; x <= Dimension; x++)
             {
                 ArenaCells.Add(new Cell());
             }

@@ -17,57 +17,57 @@ namespace Rogedo.LifeEngine.Test.Domain
         [TestMethod]
         public void WhenArenaInitialised_ThenItShouldBeTheCorrectSize()
         {
-            const int dim = 5;
+            const int Dim = 5;
 
             IArena arena = new Arena();
-            arena.Initialise(dim);    
-            
-            Assert.IsTrue(arena.GetArenaSize() == dim * dim);
+            arena.Initialise(Dim);
+
+            Assert.IsTrue(arena.GetArenaSize() == Dim * Dim);
         }
 
         [TestMethod]
         public void WhenArenaInitialised_ThenSignatureShouldBeAsExpected()
         {
-            const int dim = 2;
-            const string expectedSignature = "0000";
-            const int expectedGeneration = 1;
+            const int Dim = 2;
+            const string ExpectedSignature = "0000";
+            const int ExpectedGeneration = 1;
 
             IArena arena = new Arena();
-            arena.Initialise(dim);
+            arena.Initialise(Dim);
 
-            Assert.AreEqual(expectedSignature, arena.GetSignature());
-            Assert.AreEqual(expectedGeneration, arena.GetGeneration());
+            Assert.AreEqual(ExpectedSignature, arena.GetSignature());
+            Assert.AreEqual(ExpectedGeneration, arena.GetGeneration());
 
         }
 
         [TestMethod]
         public void WhenArenaInitialisedAndSeeded_ThenSignatureShouldBeAsExpected()
         {
-            const int dim = 2;
-            const string expectedSignature = "1001";
-            const int expectedGeneration = 1;
+            const int Dim = 2;
+            const string ExpectedSignature = "1001";
+            const int ExpectedGeneration = 1;
 
             IArena arena = new Arena();
-            arena.Initialise(dim);
+            arena.Initialise(Dim);
             arena.Seed(0, 0);
             arena.Seed(1, 1);
 
-            Assert.AreEqual(expectedSignature, arena.GetSignature());
-            Assert.AreEqual(expectedGeneration, arena.GetGeneration());
+            Assert.AreEqual(ExpectedSignature, arena.GetSignature());
+            Assert.AreEqual(ExpectedGeneration, arena.GetGeneration());
         }
 
         [TestMethod]
         public void WhenArenaInitialisedAndSeededWithOscillator_ThenSignatureAndCountShouldBeAsExpectedAtEachStage()
         {
-            const int dim = 5;
-            const string expectedSignature1 = "0000000100001000010000000";
-            const string expectedSignature2 = "0000000000011100000000000";
-            const int expectedPopulation = 3;
-            const int expectedGeneration = 2;
+            const int Dim = 5;
+            const string ExpectedSignature1 = "0000000100001000010000000";
+            const string ExpectedSignature2 = "0000000000011100000000000";
+            const int ExpectedPopulation = 3;
+            const int ExpectedGeneration = 2;
 
             IArena arena = new Arena();
-            arena.Initialise(dim);
-            
+            arena.Initialise(Dim);
+
             arena.Seed(2, 1);
             arena.Seed(2, 2);
             arena.Seed(2, 3);
@@ -77,23 +77,23 @@ namespace Rogedo.LifeEngine.Test.Domain
             var secondSignature = arena.GetSignature();
             var secondCount = arena.GetPopulation();
 
-            Assert.AreEqual(expectedSignature1, firstSignature);
-            Assert.AreEqual(expectedSignature2, secondSignature);
-            Assert.AreEqual(expectedPopulation, firstCount);
-            Assert.AreEqual(expectedPopulation, secondCount);
-            Assert.AreEqual(expectedGeneration, arena.GetGeneration());
+            Assert.AreEqual(ExpectedSignature1, firstSignature);
+            Assert.AreEqual(ExpectedSignature2, secondSignature);
+            Assert.AreEqual(ExpectedPopulation, firstCount);
+            Assert.AreEqual(ExpectedPopulation, secondCount);
+            Assert.AreEqual(ExpectedGeneration, arena.GetGeneration());
         }
 
         [TestMethod]
         public void WhenArenaInitialisedAndSeededWithStillLife_ThenSignatureAndCountShouldBeAsExpectedAtEachStage()
         {
-            const int dim = 4;
-            const string expectedSignature = "0000011001100000";            
-            const int expectedPopulation = 4;
-            const int expectedGeneration = 2;
+            const int Dim = 4;
+            const string ExpectedSignature = "0000011001100000";
+            const int ExpectedPopulation = 4;
+            const int ExpectedGeneration = 2;
 
             IArena arena = new Arena();
-            arena.Initialise(dim);
+            arena.Initialise(Dim);
 
             arena.Seed(1, 1);
             arena.Seed(1, 2);
@@ -106,11 +106,11 @@ namespace Rogedo.LifeEngine.Test.Domain
             var secondSignature = arena.GetSignature();
             var secondCount = arena.GetPopulation();
 
-            Assert.AreEqual(expectedSignature, firstSignature);
-            Assert.AreEqual(expectedSignature, secondSignature);
-            Assert.AreEqual(expectedPopulation, firstCount);
-            Assert.AreEqual(expectedPopulation, secondCount);
-            Assert.AreEqual(expectedGeneration, arena.GetGeneration());
+            Assert.AreEqual(ExpectedSignature, firstSignature);
+            Assert.AreEqual(ExpectedSignature, secondSignature);
+            Assert.AreEqual(ExpectedPopulation, firstCount);
+            Assert.AreEqual(ExpectedPopulation, secondCount);
+            Assert.AreEqual(ExpectedGeneration, arena.GetGeneration());
         }
     }
 }

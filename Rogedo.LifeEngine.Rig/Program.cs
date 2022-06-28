@@ -16,7 +16,7 @@ namespace Rogedo.LifeEngine.Rig
         {
             if (args.Length > 0)
             {
-                string flag = args[0];
+                var flag = args[0];
 
                 switch (flag)
                 {
@@ -27,7 +27,7 @@ namespace Rogedo.LifeEngine.Rig
                         Demo();
                         break;
                     case "-f":
-                        int dimensions = Convert.ToInt32(args[1]);
+                        var dimensions = Convert.ToInt32(args[1]);
                         Finder(dimensions);
                         break;
                 }
@@ -41,39 +41,40 @@ namespace Rogedo.LifeEngine.Rig
                 Runner();
                 System.Threading.Thread.Sleep(5000);
             }
+            // ReSharper disable once FunctionNeverReturns
         }
 
         static void Finder(int dimension)
         {
-            const int breakAt = 500;
+            const int BreakAt = 500;
 
-            int bestGenerations = 0;
-            int runs = 0;
+            var bestGenerations = 0;
+            var runs = 0;
 
-            Stopwatch sw = new Stopwatch();
+            var sw = new Stopwatch();
             sw.Start();
-            
+
             Console.Clear();
-            
+
             while (true)
             {
-                GetRandomArena(dimension, out IArena gameArena, out List<Point> dataPoints);
+                GetRandomArena(dimension, out var gameArena, out var dataPoints);
 
-                bool breakOut = false;
+                var breakOut = false;
 
                 while (gameArena.GetPopulation() > 0 && !gameArena.Repeating && !breakOut)
                 {
-                    int currentTot = gameArena.GetPopulation();
+                    var currentTot = gameArena.GetPopulation();
                     gameArena.MakeNextGeneration();
-                    int newTot = gameArena.GetPopulation();
+                    var newTot = gameArena.GetPopulation();
 
-                    if (currentTot == newTot || gameArena.GetGeneration() == breakAt)
+                    if (currentTot == newTot || gameArena.GetGeneration() == BreakAt)
                         breakOut = true;
                 }
 
                 runs++;
 
-                int generations = gameArena.GetGeneration();
+                var generations = gameArena.GetGeneration();
 
                 if (generations > bestGenerations && !breakOut)
                 {
@@ -118,9 +119,9 @@ namespace Rogedo.LifeEngine.Rig
 
         static void Runner()
         {
-            int dimension = 4;
+            var dimension = 4;
 
-            IArena gameArena = InitialiseArena(dimension);
+            var gameArena = InitialiseArena(dimension);
 
             Console.Clear();
 
@@ -136,7 +137,7 @@ namespace Rogedo.LifeEngine.Rig
         private static IArena InitialiseArena(int dimension)
         {
             IArena gameArena = new Arena();
-            
+
             gameArena.Initialise(dimension);
             gameArena.Seed(1, 1);
             gameArena.Seed(3, 0);
@@ -152,20 +153,20 @@ namespace Rogedo.LifeEngine.Rig
 
         static void PrintArena(IArena arena, int dimension)
         {
-            ConsoleColor defaultColour = Console.ForegroundColor;
+            var defaultColour = Console.ForegroundColor;
 
             if (arena.CurrentDimension <= 50)
             {
-                int currentCell = 0;
+                var currentCell = 0;
                 int x;
                 int y;
                 foreach (var c in arena.ArenaCells)
                 {
                     x = (currentCell % dimension) * 2;
                     y = currentCell / dimension;
-                    
+
                     Console.SetCursorPosition(x, y);
-                    
+
                     if (c.Generation == Interfaces.Types.CellGeneration.Dead)
                     {
                         Console.ForegroundColor = defaultColour;

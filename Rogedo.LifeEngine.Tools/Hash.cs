@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using System.Security.Cryptography;
 
 namespace Rogedo.LifeEngine.Tools
@@ -15,8 +13,8 @@ namespace Rogedo.LifeEngine.Tools
 
         public static string GetHashString(string inputString)
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (byte b in GetHash(inputString))
+            var sb = new StringBuilder();
+            foreach (var b in GetHash(inputString))
                 sb.Append(b.ToString("X2"));
 
             return sb.ToString();
