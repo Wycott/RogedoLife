@@ -20,4 +20,4 @@ jobs:
         run: dotnet build $SOLUTION_FILE
            
       - name: Run Tests
-        run: dotnet test $SOLUTION_FILE
+        run: dotnet test -v n $SOLUTION_FILE
