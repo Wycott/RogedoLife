@@ -6,4 +6,6 @@
 
 John Conway's Game Of Life
 
+---
+
 *Last updated: 29 May 2023*
