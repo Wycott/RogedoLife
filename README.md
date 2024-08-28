@@ -4,8 +4,9 @@
 <a href="https://github.com/Wycott/RepositoryResources/blob/main/REPOTYPE.md"><img src="https://raw.githubusercontent.com/Wycott/RepositoryResources/main/Graphics/repo%20type-Game-yellow.svg" title="Game" alt="Game"></a>
 <img src="https://img.shields.io/badge/.NET_Core-8-red">
 
-John Conway's Game Of Life
+John Conway's Game Of Life.
 
 ---
 
-*Last updated: 4 December 2023*
+*Created: 28 April 2022*  
+*Updated: 28 August 2024*
