@@ -8,5 +8,5 @@ John Conway's Game Of Life.
 
 ---
 
-*Created: 28 April 2022*  
+*Created: 30 May 2021*  
 *Updated: 28 August 2024*
