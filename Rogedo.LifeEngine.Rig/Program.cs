@@ -122,9 +122,9 @@ internal static class Program
 
     private static void Runner()
     {
-        var dimension = 4;
+        const int Dimension = 4;
 
-        var gameArena = InitialiseArena(dimension);
+        var gameArena = InitialiseArena(Dimension);
 
         Clear();
 
