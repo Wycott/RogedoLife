@@ -23,6 +23,7 @@ public class RandomArenaGenerator
             var newPoint = new Point(x, y);
 
             retVal.Add(newPoint);
+            retVal.Add(newPoint);
 
             dataStream = dataStream.Substring(2);
         }
@@ -41,6 +42,7 @@ public class RandomArenaGenerator
                 badGuys.Add(x.ToString());
             }
         }
+
         var rawDataStream = Guid.NewGuid().ToString();
 
         foreach (var badGuy in badGuys)
