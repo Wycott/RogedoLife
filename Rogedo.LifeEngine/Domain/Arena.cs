@@ -140,6 +140,16 @@ public class Arena : IArena
         Pad();
     }
 
+    public int GetPopulation()
+    {
+        return ArenaCells.Count(x => x.Generation == Generation.Current);
+    }
+
+    public int GetGeneration()
+    {
+        return CellGeneration + 1;
+    }
+
     private static bool PopulateCell()
     {
         var wins = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7' };
@@ -216,16 +226,6 @@ public class Arena : IArena
         {
             Signatures.Add(signature);
         }
-    }
-
-    public int GetPopulation()
-    {
-        return ArenaCells.Count(x => x.Generation == Generation.Current);
-    }
-
-    public int GetGeneration()
-    {
-        return CellGeneration + 1;
     }
 
     private int GetIndex(int x, int y)
