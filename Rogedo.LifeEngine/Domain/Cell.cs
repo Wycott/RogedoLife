@@ -1,20 +1,19 @@
 ﻿using Rogedo.LifeEngine.Interfaces;
-using Rogedo.LifeEngine.Interfaces.Types;
+using Rogedo.LifeEngine.Types;
 
-namespace Rogedo.LifeEngine.Domain
+namespace Rogedo.LifeEngine.Domain;
+
+public class Cell : ICell
 {
-    public class Cell : ICell
+    public CellGeneration Generation { get; private set; }
+
+    public Cell()
     {
-        public CellGeneration Generation { get; private set; }
+        Generation = CellGeneration.Dead;
+    }
 
-        public Cell()
-        {
-            Generation = CellGeneration.Dead;
-        }
-
-        public void SetGeneration(CellGeneration generation)
-        {
-            Generation = generation;
-        }
+    public void SetGeneration(CellGeneration generation)
+    {
+        Generation = generation;
     }
 }

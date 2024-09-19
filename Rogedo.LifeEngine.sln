@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31129.286
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogedo.LifeEngine", "Rogedo.LifeEngine\Rogedo.LifeEngine.csproj", "{42BD2C83-3B14-4DE4-8FBE-CC2ECE5ABB2A}"
 EndProject
@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogedo.LifeEngine.Interface
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogedo.LifeEngine.Rig", "Rogedo.LifeEngine.Rig\Rogedo.LifeEngine.Rig.csproj", "{E524874F-14B4-4BEC-BCA6-EEFAC891A3EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogedo.LifeEngine.Tools", "Rogedo.LifeEngine.Tools\Rogedo.LifeEngine.Tools.csproj", "{DCECE240-B3FD-47A8-B619-48D0E4EF80F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogedo.LifeEngine.Tools", "Rogedo.LifeEngine.Tools\Rogedo.LifeEngine.Tools.csproj", "{DCECE240-B3FD-47A8-B619-48D0E4EF80F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogedo.LifeEngine.Tools.Test", "Rogedo.LifeEngine.Tools.Test\Rogedo.LifeEngine.Tools.Test.csproj", "{863B1D7E-B501-4C7D-AF92-C761BC43066B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogedo.LifeEngine.Tools.Test", "Rogedo.LifeEngine.Tools.Test\Rogedo.LifeEngine.Tools.Test.csproj", "{863B1D7E-B501-4C7D-AF92-C761BC43066B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogedo.LifeEngine.Types", "Rogedo.LifeEngine.Types\Rogedo.LifeEngine.Types.csproj", "{6993F317-2C1D-4C79-ADEC-9D73E38979F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{863B1D7E-B501-4C7D-AF92-C761BC43066B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{863B1D7E-B501-4C7D-AF92-C761BC43066B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{863B1D7E-B501-4C7D-AF92-C761BC43066B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6993F317-2C1D-4C79-ADEC-9D73E38979F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6993F317-2C1D-4C79-ADEC-9D73E38979F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6993F317-2C1D-4C79-ADEC-9D73E38979F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6993F317-2C1D-4C79-ADEC-9D73E38979F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

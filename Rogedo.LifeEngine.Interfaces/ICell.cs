@@ -1,10 +1,9 @@
-﻿using Rogedo.LifeEngine.Interfaces.Types;
+﻿using Rogedo.LifeEngine.Types;
 
-namespace Rogedo.LifeEngine.Interfaces
+namespace Rogedo.LifeEngine.Interfaces;
+
+public interface ICell
 {
-    public interface ICell
-    {
-        CellGeneration Generation { get; }
-        void SetGeneration(CellGeneration generation);
-    }
+    CellGeneration Generation { get; }
+    void SetGeneration(CellGeneration generation);
 }
