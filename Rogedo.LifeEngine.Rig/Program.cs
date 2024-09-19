@@ -160,50 +160,63 @@ internal static class Program
 
         if (arena.CurrentDimension <= 50)
         {
-            var currentCell = 0;
-            int x;
-            int y;
-            foreach (var c in arena.ArenaCells)
-            {
-                x = (currentCell % dimension) * 2;
-                y = currentCell / dimension;
-
-                SetCursorPosition(x, y);
-
-                if (c.Generation == Types.CellGeneration.Dead)
-                {
-                    ForegroundColor = defaultColour;
-                    Write(" .");
-                }
-                else
-                {
-                    ForegroundColor = ConsoleColor.Yellow;
-                    Write(" O");
-                    ForegroundColor = defaultColour;
-                }
-                currentCell++;
-
-            }
-
-            ForegroundColor = ConsoleColor.White;
-            SetCursorPosition(0, dimension);
-            WriteLine($"Generation: {arena.GetGeneration()} ");
-            SetCursorPosition(0, dimension + 1);
-            WriteLine($"Population: {arena.GetPopulation()} ");
-            SetCursorPosition(0, dimension + 2);
-            WriteLine($"Dimension: {arena.CurrentDimension} ");
-            System.Threading.Thread.Sleep(100);
+            DisplayCells(arena, dimension, defaultColour);
+            DisplayDynamicStatistics(arena, dimension);
         }
         else
         {
-            ForegroundColor = ConsoleColor.White;
-
-            WriteLine($"Generation: {arena.GetGeneration()}");
-            WriteLine($"Population: {arena.GetPopulation()} ");
-            WriteLine($"Dimension: {arena.CurrentDimension} ");
-            WriteLine();
+            DisplayStaticStatistics(arena);
         }
 
         ForegroundColor = defaultColour;
+    }
+
+    private static void DisplayCells(IArena arena, int dimension, ConsoleColor defaultColour)
+    {
+        var currentCell = 0;
+
+        foreach (var c in arena.ArenaCells)
+        {
+            var x = (currentCell % dimension) * 2;
+            var y = currentCell / dimension;
+
+            SetCursorPosition(x, y);
+
+            if (c.Generation == Types.CellGeneration.Dead)
+            {
+                ForegroundColor = defaultColour;
+                Write(" .");
+            }
+            else
+            {
+                ForegroundColor = ConsoleColor.Yellow;
+                Write(" O");
+                ForegroundColor = defaultColour;
+            }
+
+            currentCell++;
+        }
+    }
+
+    private static void DisplayDynamicStatistics(IArena arena, int dimension)
+    {
+        ForegroundColor = ConsoleColor.White;
+        SetCursorPosition(0, dimension);
+        WriteLine($"Generation: {arena.GetGeneration()} ");
+        SetCursorPosition(0, dimension + 1);
+        WriteLine($"Population: {arena.GetPopulation()} ");
+        SetCursorPosition(0, dimension + 2);
+        WriteLine($"Dimension: {arena.CurrentDimension} ");
+        System.Threading.Thread.Sleep(100);
+    }
+
+    private static void DisplayStaticStatistics(IArena arena)
+    {
+        ForegroundColor = ConsoleColor.White;
+
+        WriteLine($"Generation: {arena.GetGeneration()}");
+        WriteLine($"Population: {arena.GetPopulation()} ");
+        WriteLine($"Dimension: {arena.CurrentDimension} ");
+        WriteLine();
     }
 }
