@@ -15,23 +15,25 @@ internal static class Program
 {
     private static void Main(string[] args)
     {
-        if (args.Length > 0)
+        if (args.Length <= 0)
         {
-            var flag = args[0];
+            return;
+        }
 
-            switch (flag)
-            {
-                case "-r":
-                    Runner();
-                    break;
-                case "-d":
-                    Demo();
-                    break;
-                case "-f":
-                    var dimensions = Convert.ToInt32(args[1]);
-                    Finder(dimensions);
-                    break;
-            }
+        var flag = args[0];
+
+        switch (flag)
+        {
+            case "-r":
+                Runner();
+                break;
+            case "-d":
+                Demo();
+                break;
+            case "-f":
+                var dimensions = Convert.ToInt32(args[1]);
+                Finder(dimensions);
+                break;
         }
     }
 
@@ -86,11 +88,13 @@ internal static class Program
                 DumpDataPoints(dataPoints);
             }
 
-            if (runs % 100000 == 0)
+            if (runs % 100000 != 0)
             {
-                WriteLine($"Runs: {runs}, Elapsed: {sw.ElapsedMilliseconds / 1000 / 60} mins");
-                return;
+                continue;
             }
+
+            WriteLine($"Runs: {runs}, Elapsed: {sw.ElapsedMilliseconds / 1000 / 60} mins");
+            return;
         }
     }
 
@@ -129,11 +133,13 @@ internal static class Program
         Clear();
 
         CursorVisible = false;
+
         while (gameArena.GetPopulation() > 0 && !gameArena.Repeating)
         {
             PrintArena(gameArena, gameArena.CurrentDimension);
             gameArena.MakeNextGeneration();
         }
+
         CursorVisible = true;
     }
 

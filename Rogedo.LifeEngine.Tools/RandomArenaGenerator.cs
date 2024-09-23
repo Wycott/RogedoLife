@@ -25,7 +25,7 @@ public class RandomArenaGenerator
             retVal.Add(newPoint);
             retVal.Add(newPoint);
 
-            dataStream = dataStream.Substring(2);
+            dataStream = dataStream[2..];
         }
 
         return retVal.Distinct().OrderBy(p => p.X).ThenBy(q => q.Y).ToList();

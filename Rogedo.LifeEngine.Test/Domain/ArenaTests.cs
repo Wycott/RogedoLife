@@ -59,9 +59,10 @@ public class ArenaTests
     [TestMethod]
     public void WhenArenaInitialisedAndSeededWithOscillator_ThenSignatureAndCountShouldBeAsExpectedAtEachStage()
     {
-        const int Dim = 5;
         const string ExpectedSignature1 = "0000000100001000010000000";
         const string ExpectedSignature2 = "0000000000011100000000000";
+     
+        const int Dim = 5;
         const int ExpectedPopulation = 3;
         const int ExpectedGeneration = 2;
 
@@ -88,9 +89,10 @@ public class ArenaTests
     public void WhenArenaInitialisedAndSeededWithStillLife_ThenSignatureAndCountShouldBeAsExpectedAtEachStage()
     {
         const int Dim = 4;
-        const string ExpectedSignature = "0000011001100000";
         const int ExpectedPopulation = 4;
         const int ExpectedGeneration = 2;
+
+        const string ExpectedSignature = "0000011001100000";
 
         IArena arena = new Arena();
         arena.Initialise(Dim);

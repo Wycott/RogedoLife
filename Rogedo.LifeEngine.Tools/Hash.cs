@@ -17,7 +17,9 @@ public static class Hash
         var sb = new StringBuilder();
 
         foreach (var b in GetHash(inputString))
+        {
             sb.Append(b.ToString("X2"));
+        }
 
         return sb.ToString();
     }

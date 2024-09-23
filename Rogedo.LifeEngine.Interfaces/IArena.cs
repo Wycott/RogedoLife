@@ -4,17 +4,22 @@ namespace Rogedo.LifeEngine.Interfaces;
 
 public interface IArena
 {
-    List<ICell> ArenaCells { get; }
-    void Initialise(int dimension);
-    int GetArenaSize();
-    string GetSignature();
+    bool Repeating { get; }
+
+    void Pad();
     void Seed(int x, int y);
-    ICell GetCellAt(int x, int y);
     void MakeNextGeneration();
+    void Initialise(int dimension);
+    void InitialiseRandomly(int dimension);
+    
+    int GetArenaSize();
     int GetPopulation();
     int GetGeneration();
-    bool Repeating { get; }
-    void InitialiseRandomly(int dimension);
-    void Pad();
     int CurrentDimension { get; }
+
+    string GetSignature();
+
+    ICell GetCellAt(int x, int y);
+
+    List<ICell> ArenaCells { get; }
 }
