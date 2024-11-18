@@ -12,6 +12,11 @@ jobs:
         
       - name: Checkout
         uses: actions/checkout@v1
+
+      - name: Setup .NET Core 
+        uses: actions/setup-dotnet@v4 
+        with: 
+          dotnet-version: '9.0.x'        
         
       - name: NuGet Restore
         run: dotnet restore $SOLUTION_FILE
