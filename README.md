@@ -10,4 +10,4 @@ John Conway's Game Of Life.
 ---
 
 *Created: 30 May 2021*  
-*Updated: 20 December 2024*
+*Updated: 31 October 2025*
