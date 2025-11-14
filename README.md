@@ -2,7 +2,7 @@
 
 <a href="https://docs.microsoft.com/en-us/dotnet/csharp/"><img src="https://raw.githubusercontent.com/Wycott/RepositoryResources/main/Graphics/language-csharp.svg" title="Language C#" alt="Language C#"></a>
 <a href="https://github.com/Wycott/RepositoryResources/blob/main/REPOTYPE.md"><img src="https://raw.githubusercontent.com/Wycott/RepositoryResources/main/Graphics/repo%20type-Game-yellow.svg" title="Game" alt="Game"></a>
-<img src="https://img.shields.io/badge/.NET_Core-9-red">
+<img src="https://img.shields.io/badge/.NET_Core-10-red">
 ![Build Status](https://github.com/Wycott/RogedoLife/actions/workflows/dotnet.yml/badge.svg)
 
 John Conway's Game Of Life.
@@ -10,4 +10,4 @@ John Conway's Game Of Life.
 ---
 
 *Created: 30 May 2021*  
-*Updated: 31 October 2025*
+*Updated: 14 November 2025*
