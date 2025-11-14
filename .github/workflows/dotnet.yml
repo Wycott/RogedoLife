@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on: 
+  push:
+    paths-ignore:
+      - 'README.md'
 
 env:
   SOLUTION_FILE: $Env:GITHUB_WORKSPACE\Rogedo.LifeEngine.sln
@@ -13,10 +16,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Setup .NET Core 
-        uses: actions/setup-dotnet@v4 
-        with: 
-          dotnet-version: '9.0.x'        
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'  # Targeting .NET 10
         
       - name: NuGet Restore
         run: dotnet restore $SOLUTION_FILE
