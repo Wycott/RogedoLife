@@ -16,10 +16,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Setup .NET 10 SDK
+      - name: Setup .NET 11 SDK
         uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: '10.0.x'  # Targeting .NET 10
+          dotnet-version: '11.0.x'  # Targeting .NET 11
         
       - name: NuGet Restore
         run: dotnet restore $SOLUTION_FILE
